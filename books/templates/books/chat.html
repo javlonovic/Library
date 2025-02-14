@@ -1,0 +1,21 @@
+{% extends 'books/base.html' %}
+{% block title %}Chat{% endblock %}
+{% block content %}
+    <div class="container">
+        <div id="chat-box">
+            {% for message in messages %}
+                <div class="message">
+                    <p><strong>{{ message.user.username }}:</strong> {{ message.content }}</p>
+                    {% if message.user == request.user %}
+                        <a href="{% url 'edit_message' message.id %}">Edit</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <form method="POST" action="{% url 'send_message' %}">
+            {% csrf_token %}
+            <input type="text" name="content" placeholder="Type your message here...">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+{% endblock %}

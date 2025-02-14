@@ -1,0 +1,15 @@
+{% extends 'books/base.html' %}
+{% load static %}
+{% block title %}Log In{% endblock %}
+{% block content %}
+    <div class="card-container">
+        <div class="card">
+            <h2>Log In</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }} 
+                <button type="submit" class="btn">Log In</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

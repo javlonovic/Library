@@ -1,0 +1,103 @@
+{% extends 'books/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Angkor&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+    background-color: black;
+    color: white;
+}
+.angkor-regular {
+    font-family: "Angkor", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 150px;
+}
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+.montserrat-bold {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+}
+.book-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.book-item .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.book-item .card-text {
+    flex: 1;
+    color: black; /* Set text color to black */
+}
+.book-item .btn {
+    margin-left: 10px;
+}
+.class-select {
+    margin-bottom: 20px;
+}
+.class-select select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.book-list .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.book-list .col-md-4 {
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+}
+</style>
+<div class="container">
+    <h1 class="angkor-regular">Welcome to MySite</h1>
+    <form method="get" action="{% url 'home' %}">
+        <div class="class-select">
+            <select id="class-grade" name="class_grade" class="roboto-regular">
+                <option value="">All Grades</option>
+                {% for grade, grade_name in user.CLASS_GRADES %}
+                    <option value="{{ grade }}" {% if request.GET.class_grade == grade %}selected{% endif %}>{{ grade_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+    <div class="book-list">
+        <div class="row">
+            {% for book in books %}
+                <div class="col-md-4 mb-4">
+                    <div class="card book-item">
+                        {% if book.cover_image %}
+                            <img src="{{ book.cover_image.url }}" class="card-img-top" alt="Book Cover">
+                        {% else %}
+                            <img src="{% static 'images/default_cover.jpg' %}" class="card-img-top" alt="Default Book Cover">
+                        {% endif %}
+                        <div class="card">
+                            <div class="card-text montserrat-bold">{{ book.title }}</div>
+                            <div class="card-text roboto-regular"><strong>Grade:</strong> {{ book.get_class_grade_display }}</div>
+                            <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

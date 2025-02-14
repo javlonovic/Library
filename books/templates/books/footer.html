@@ -1,0 +1,44 @@
+{% load static %}
+<footer class="footer">
+    <div class="container">
+        <a href="https://t.me/bos1dd" class="social-link">Telegram</a> |
+        <a href="" class="social-link">Instagram</a>
+        <span>Ziyayev Abdulbosit Javlonovich tomonidan tayyorlandi.</span>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+        animation: slideIn 1s ease-in-out;
+    }
+
+    .social-link {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: 0.3s;
+    }
+
+    .social-link:hover {
+        color: #00bcd4;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>

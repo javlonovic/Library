@@ -1,0 +1,43 @@
+{% extends 'books/base.html' %}
+{% load static %}
+{% block title %}{{ book.title }}{% endblock %}
+{% block content %}
+<style>
+    .angkor-regular {
+    font-family: "Angkor", serif;
+    font-weight: 10;
+    font-style: normal;
+    color: white;
+    font-size: 25px;
+}
+</style>
+    <div class="container">
+        <div class="book-detail">
+            {% if book.cover_image %}
+                <img src="{{ book.cover_image.url }}" class="book-cover" alt="Book Cover">
+            {% else %}
+                <img src="{% static 'images/default_cover.jpg' %}" class="book-cover" alt="Default Book Cover">
+            {% endif %}
+            <div class="book-info">
+                <h1 class="angkor-regular">{{ book.title }}</h1>
+                <p class="book-author"><strong class="angkor-regular">Author:</strong> {{ book.author }}</p>
+                <p class="book-description"><strong class="angkor-regular">Description:</strong> {{ book.description }}</p>
+                <p class="book-published-date"><strong class="angkor-regular">Published Date:</strong> {{ book.published_date }}</p>
+                <p class="book-grade"><strong class="angkor-regular">Grade:</strong> {{ book.get_class_grade_display }}</p>
+                {% if book.pdf_file %}
+                    <a href="{{ book.pdf_file.url }}" class="btn btn-success">Download</a>
+                {% else %}
+                    <p>No PDF available for download.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="trending-books">
+            <h2 class="angkor-regular">Trending Books</h2>
+            <ul>
+                {% for trending_book in trending_books %}
+                    <a href="{% url 'book_detail' trending_book.id %}"><img src="{{ trending_book.cover_image.url }}" class="book-cover" alt="Book Cover">
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
