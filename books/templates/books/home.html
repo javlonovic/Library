@@ -13,7 +13,7 @@ body {
     font-family: "Angkor", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 150px;
+    font-size: 10vw; /* Make font size flexible */
 }
 .roboto-regular {
     font-family: "Roboto", sans-serif;
@@ -29,6 +29,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
 }
 .book-item .card-body {
     display: flex;
@@ -59,8 +60,22 @@ body {
     gap: 20px;
 }
 .book-list .col-md-4 {
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
+    flex: 1 1 calc(100% - 20px); /* Make the cards take full width on small screens */
+    max-width: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 576px) {
+    .book-list .col-md-4 {
+        flex: 1 1 calc(50% - 20px); /* Make the cards take half width on medium screens */
+        max-width: calc(50% - 20px);
+    }
+}
+@media (min-width: 768px) {
+    .book-list .col-md-4 {
+        flex: 1 1 calc(33.333% - 20px); /* Make the cards take one-third width on large screens */
+        max-width: calc(33.333% - 20px);
+    }
 }
 </style>
 <div class="container">
