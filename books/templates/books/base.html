@@ -5,367 +5,397 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Online kutubxona{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Angkor&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .angkor-regular1 {
+            font-family: "Angkor", serif;
+            font-weight: 10;
+            font-style: normal;
+            color: white;
+            font-size: 25px;
+        }
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            font-size: 18px; /* Increased font size */
+        }
+
+        /* Dark Theme */
+        body {
+            background-color: #111;
+            color: #fff;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #000;
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            transition: 0.3s;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Buttons */
+        button {
+            background: #444;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 20px; /* Rounded corners */
+            padding: 10px 20px;
+            border: none;
+            font-size: 18px; /* Increased font size */
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: #000;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content {
+            animation: fadeIn 0.6s ease-in-out;
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Chat Container */
+        #chat-box {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .message {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #333;
+            border-radius: 5px;
+        }
+
+        .message p {
+            margin: 0;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .delete-form {
+            margin: 0;
+        }
+
+        .delete-btn {
+            background: transparent;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: transform 0.2s;
+            border-radius: 50%; /* Rounded corners */
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .send-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 20px; /* Rounded corners */
+            background: #333;
+            color: white;
+            font-size: 18px; /* Increased font size */
+        }
+
+        input[type="text"]::placeholder {
+            color: #aaa;
+        }
+
+        .send-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%; /* Rounded corners */
+        }
+
+        .send-btn img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .error {
+            color: red;
+            font-size: 18px; /* Increased font size */
+        }
+
+        /* Card Container */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Adjusted height to position higher */
+        }
+
+        .card {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 0.6s ease-in-out;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            font-size: 24px; /* Increased font size */
+        }
+
+        .card input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 20px; /* Rounded corners */
+            background: #333;
+            color: white;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .card input::placeholder {
+            color: #aaa;
+        }
+
+        .card button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px; /* Rounded corners */
+            background: #444;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .card button:hover {
+            background: #555;
+        }
+
+        .card p {
+            margin-top: 20px;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .card a {
+            color: #00bcd4;
+            text-decoration: none;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Book List */
+        .book-list {
+            margin-top: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .col-md-4 {
+            flex: 1 1 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
+        }
+
+        .book-item {
+            background: #333;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .book-item img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .book-item h3 {
+            margin-bottom: 10px;
+            font-size: 24px; /* Increased font size */
+        }
+
+        .book-item p {
+            margin: 5px 0;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .book-item .btn {
+            background: #00bcd4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .book-item .btn:hover {
+            background: #0097a7;
+        }
+
+        /* Book Detail */
+        .book-detail {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 40px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .book-cover {
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        .book-info {
+            max-width: 600px;
+        }
+
+        .book-info h1 {
+            margin-bottom: 20px;
+            font-size: 24px; /* Increased font size */
+        }
+
+        .book-info p {
+            margin: 10px 0;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .book-info .btn {
+            background: #00bcd4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .book-info .btn:hover {
+            background: #0097a7;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .card {
+                padding: 10px;
+            }
+            .card-body {
+                padding: 10px;
+            }
+            .book-detail {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .book-cover {
+                width: 100%;
+            }
+            .book-info {
+                max-width: 100%;
+            }
+            .row {
+                flex-direction: column;
+            }
+            .col-md-4 {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
-<style>
-    .angkor-regular1 {
-    font-family: "Angkor", serif;
-    font-weight: 10;
-    font-style: normal;
-    color: white;
-    font-size: 25px;
-}
-/* Global Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-    font-size: 18px; /* Increased font size */
-}
-
-/* Dark Theme */
-body {
-    background-color: #111;
-    color: #fff;
-}
-
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: #000;
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
-}
-
-.navbar .logo {
-    display: flex;
-    align-items: center;
-}
-
-.navbar .logo img {
-    width: 30px;
-    margin-right: 10px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: white;
-    padding: 10px 15px;
-    transition: 0.3s;
-    font-size: 18px; /* Increased font size */
-}
-
-.nav-links a:hover {
-    color: yellow;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
-}
-
-/* Buttons */
-button {
-    background: #444;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 20px; /* Rounded corners */
-    padding: 10px 20px;
-    border: none;
-    font-size: 18px; /* Increased font size */
-}
-
-button:hover {
-    background: #555;
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 15px;
-    background: #000;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.content {
-    animation: fadeIn 0.6s ease-in-out;
-    text-align: center;
-    padding: 40px;
-}
-
-/* Chat Container */
-#chat-box {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #222;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.message {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    background: #333;
-    border-radius: 5px;
-}
-
-.message p {
-    margin: 0;
-    font-size: 18px; /* Increased font size */
-}
-
-.delete-form {
-    margin: 0;
-}
-
-.delete-btn {
-    background: transparent;
-    border: none;
-    color: #ff4d4d;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: transform 0.2s;
-    border-radius: 50%; /* Rounded corners */
-}
-
-.delete-btn:hover {
-    transform: scale(1.2);
-}
-
-.send-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-input[type="text"] {
-    width: calc(100% - 60px);
-    padding: 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 20px; /* Rounded corners */
-    background: #333;
-    color: white;
-    font-size: 18px; /* Increased font size */
-}
-
-input[type="text"]::placeholder {
-    color: #aaa;
-}
-
-.send-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    border-radius: 50%; /* Rounded corners */
-}
-
-.send-btn img {
-    width: 30px;
-    height: 30px;
-}
-
-.error {
-    color: red;
-    font-size: 18px; /* Increased font size */
-}
-
-/* Card Container */
-.card-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; /* Adjusted height to position higher */
-}
-
-.card {
-    background: #222;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 400px;
-    animation: fadeInUp 0.6s ease-in-out;
-}
-
-.card h2 {
-    margin-bottom: 20px;
-    font-size: 24px; /* Increased font size */
-}
-
-.card input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 20px; /* Rounded corners */
-    background: #333;
-    color: white;
-    font-size: 18px; /* Increased font size */
-}
-
-.card input::placeholder {
-    color: #aaa;
-}
-
-.card button {
-    width: 100%;
-    padding: 10px;
-    border-radius: 20px; /* Rounded corners */
-    background: #444;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 18px; /* Increased font size */
-}
-
-.card button:hover {
-    background: #555;
-}
-
-.card p {
-    margin-top: 20px;
-    font-size: 18px; /* Increased font size */
-}
-
-.card a {
-    color: #00bcd4;
-    text-decoration: none;
-    font-size: 18px; /* Increased font size */
-}
-
-.card a:hover {
-    text-decoration: underline;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Book List */
-.book-list {
-    margin-top: 20px;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.col-md-4 {
-    flex: 1 1 calc(33.333% - 20px);
-    max-width: calc(33.333% - 20px);
-}
-
-.book-item {
-    background: #333;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.book-item img {
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-}
-
-.book-item h3 {
-    margin-bottom: 10px;
-    font-size: 24px; /* Increased font size */
-}
-
-.book-item p {
-    margin: 5px 0;
-    font-size: 18px; /* Increased font size */
-}
-
-.book-item .btn {
-    background: #00bcd4;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-size: 18px; /* Increased font size */
-}
-
-.book-item .btn:hover {
-    background: #0097a7;
-}
-
-/* Book Detail */
-.book-detail {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 40px;
-    animation: fadeIn 0.6s ease-in-out;
-}
-
-.book-cover {
-    width: 200px;
-    border-radius: 10px;
-}
-
-.book-info {
-    max-width: 600px;
-}
-
-.book-info h1 {
-    margin-bottom: 20px;
-    font-size: 24px; /* Increased font size */
-}
-
-.book-info p {
-    margin: 10px 0;
-    font-size: 18px; /* Increased font size */
-}
-
-.book-info .btn {
-    background: #00bcd4;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-size: 18px; /* Increased font size */
-}
-
-.book-info .btn:hover {
-    background: #0097a7;
-}
-</style>
 <body>
     <nav class="navbar">
         <div class="logo">
@@ -386,6 +416,11 @@ input[type="text"]::placeholder {
     <div class="content">
         {% block content %}{% endblock %}
     </div>
-    {% include 'books/footer.html' %}
+    {% if not request.resolver_match.url_name == 'about_us' %}
+        {% include 'books/footer.html' %}
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
