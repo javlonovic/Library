@@ -1,14 +1,80 @@
 {% extends 'books/base.html' %}
+{% load static %}
 {% block title %}Sign Up{% endblock %}
 {% block content %}
-    <div class="card-container">
-        <div class="card">
-            <h2>Sign Up</h2>
-            <form method="post" action="{% url 'signup' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn">Sign Up</button>
-            </form>
-        </div>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+    background-color: black;
+    color: white;
+}
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.card {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+}
+.card h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.card input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 20px;
+    background: #333;
+    color: white;
+    font-size: 18px;
+}
+.card input::placeholder {
+    color: #aaa;
+}
+.card button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    background: #444;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+}
+.card button:hover {
+    background: #555;
+}
+.card p {
+    margin-top: 20px;
+    font-size: 18px;
+}
+.card a {
+    color: #00bcd4;
+    text-decoration: none;
+    font-size: 18px;
+}
+.card a:hover {
+    text-decoration: underline;
+}
+</style>
+<div class="card-container">
+    <div class="container card">
+        <h2>Sign Up</h2>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
     </div>
+</div>
 {% endblock %}
