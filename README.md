@@ -45,7 +45,7 @@ my-django-project
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/my-django-project.git
+   git clone https://github.com/javlonovic/my-django-project.git
    ```
 
 2. Navigate to the project directory:
